@@ -1,0 +1,34 @@
+NGÔN NGỮ TRUY VẤN CÓ CẤU TRÚC
+
+SELECT< Danh sách các cột cần hiển thị>
+FROM< Danh sách các bảng>
+
+Vd: Cho biết số lượng và giá bán của mỗi mặt hàng
+Hiển thị MaHang, TenHang, SoLuong, GiaBan
+
+SELECT MaHang, TenHang, SoLuong, GiaBan
+FROM MatHang nối ChiTietDatHang
+=>  SELECT MATHANG.MAHANG, TENHANG, CHITIETDATHANG.SOLUONG, GIABAN 
+    FROM MATHANG INNER JOIN CHITIETDATHANG ON MATHANG.MAHANG = CHITIETDATHANG.MAHANG
+
+
+Vd: Cho biết số lượng và giá hàng của mỗi mặt hàng
+Hiển thị MaHang, TenHang, SoLuong, GiaHang
+Bảng MatHang
+=>  SELECT MATHANG.MAHANG, TENHANG, SOLUONG, GIAHANG
+    FROM MATHANG 
+
+Cấu trúc hoàn chỉnh
+SELECT
+FROM
+WHERE
+ORDER BY
+HAVING (SELECT
+        FROM
+        ...)
+
+                        MỆNH ĐỀ SELECT
+        * Các cột hiển thị cách nhau bởi dấu phẩy
+        Ví Dụ: Hiển thị mã nhân viên, họ tên, lương cơ bản của mỗi nhân viên
+        =>  SELECT MANHANVIEN, HO+' '+TEN, LUONGCOBAN
+            FROM NHANVIEN   
