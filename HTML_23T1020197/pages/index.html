@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .i1 {
+            align: left;
+            padding-left: 20px;
+        }
+
+        .i3, .i2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        .t2 table,
+        .t2 th,
+        .t2 td {
+            border: 1px solid black;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        h2 {
+            color: red;
+        }
+
+        .vd{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+    <div>
+        <table class="t1">
+            <tr>
+                <td class="t11" >
+                    <img class="i1" src="../images/logo-dhkk.png" alt="">
+                </td>
+                <td class="t12">
+                    <h1 style="text-align: center; color: rgb(179, 14, 14);">THÔNG TIN TUYỂN SINH</h1>
+                </td>
+            </tr>
+        </table>
+
+        <div class="i2">
+            <img src="../images/dhkh.png" alt="">
+        </div>
+        <h2>Danh sách ngành đạo tào</h2>
+
+       <div class="t2">
+        <table>
+            <tr>
+                <td rowspan="2">
+                    Công nghệ thông tin
+                </td>
+                <td>
+                    <a href="../pages/gioi-thieu-cntt.html">Giới thiệu</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="../pages/ctdl-cntt.html">Chương trình đào tạo</a>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    Kiến trúc
+                </td>
+                <td>
+                    Giới thiệu
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Chương trình đạo tạo
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    Báo chí
+                </td>
+                <td>
+                    Giới thiệu
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Chương trình đạo tạo
+                </td>
+            </tr>
+        </table>
+       </div>
+
+        <div class="i3">
+            <img src="../images/tu-van-tuyen-sinh.png" alt="">
+        </div>
+        
+        <br>
+        <div class="vd">
+            <video controls style="width: 80%">
+                <source src="../videos/intro.mp4"> 
+                <track src="../videos/phude.vtt" 
+                label="Tiếng Việt"
+                kind="subtitles"
+                default
+                />
+            </video>
+        </div>
+    </div>
+
+</body>
+
+</html>
