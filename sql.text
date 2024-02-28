@@ -4,6 +4,10 @@
 SELECT< Danh sách các cột cần hiển thị>
 FROM< Danh sách các bảng>
 
+  *Hiển thị thông tin cả bảng
+    SELECT*
+    FROM <Tên Bảng>
+
 Vd: Cho biết số lượng và giá bán của mỗi mặt hàng
 Hiển thị MaHang, TenHang, SoLuong, GiaBan
 
@@ -83,3 +87,12 @@ Vd:
         Lỗi: Ambiguous column name (trùng cột)
         Vd: Hiển thị Mã hàngm tên hàng, số lượng và giá bán của mặt hàng.
         Hiển thị: MaHang, TenHang, SoLuongm GiaBan
+        
+                TỪ KHÓA TOP, PERCENT
+            TOP: Lấy số lượng từ trên (xếp hạng)
+            PERCENT: Lấy số lượng % từ trên (xêp hạng)
+        Vd:
+            SELECT TOP 5 MASV, HODEM, TEN
+            FROM SINHVIEN
+        //lấy top 5 sinh viên ...
+        Note: lấy thứ tự ...
