@@ -1,4 +1,5 @@
-NGÔN NGỮ TRUY VẤN CÓ CẤU TRÚC
+21/2/2024
+                NGÔN NGỮ TRUY VẤN CÓ CẤU TRÚC
 
 SELECT< Danh sách các cột cần hiển thị>
 FROM< Danh sách các bảng>
@@ -18,7 +19,7 @@ Bảng MatHang
 =>  SELECT MATHANG.MAHANG, TENHANG, SOLUONG, GIAHANG
     FROM MATHANG 
 
-Cấu trúc hoàn chỉnh
+Cấu trúc hoàn chỉnh    
 SELECT
 FROM
 WHERE
@@ -32,3 +33,53 @@ HAVING (SELECT
         Ví Dụ: Hiển thị mã nhân viên, họ tên, lương cơ bản của mỗi nhân viên
         =>  SELECT MANHANVIEN, HO+' '+TEN, LUONGCOBAN
             FROM NHANVIEN   
+
+            //*********************//
+28/2/2024
+ĐỔI TÊN CỘT
+    <TÊN CŨ> AS <TÊN MỚI>
+Note: Tên là một chuỗi ký tự -> đặt trong ' '
+Vd:
+    SELECT MANHANVIEN AS 'Mã Nhân Viên'
+    FROM NHANVIEN
+-> Bảng với nội dung tên cột -> Mã Nhân Viên
+
+    * Các phép toán + - * / (nằm trong SELECT)
+    Vd: Cho biết Mã hàng, Tên hàng, Số lượng, Gía Hàng, và Thành tiền trong đó Thành tiên = Số lượng * Gía Hàng
+->  SELECT MAHANG AS 'Mã hàng', TENHANG AS 'Tên hàng', SOLUONG AS 'Số lượng', GIAHANG AS 'Giá hàng', SOLUONG * GIAHANG AS 'Thành tiền'
+    FROM MATHANG    
+
+                    Câu lệnh CASE..WHEN..END  
+
+        Cú pháp:    CASE   
+                        WHEN <BT điều kiện (true) > THEN <Câu lệnh 1(value)>
+                        ELSE <Câu lệnh 2(value)>
+                    END
+                -> Hiển thị 1 cột trong SELECT
+        Vd1: Nếu GioiTinh= 0 thì Nữ ngược lại Nam
+            CASE 
+                WHEN GioiTinh=0 THEN 'Nữ'
+                ELSE 'Nam'
+            END
+        Vd2: Hiển thị Mã sinh viên, họ đệm, tên và giới tính(=0 Nam ,=1 Nữ)
+            SELECT MaSV,Hodem,Ten, 
+                CASE 
+                    WHEN GioiTinh=0 THEN 'Nữ'
+                    ELSE 'Nam'
+                END AS 'Giới tính' // tên cột
+            FROM SINHVIEN
+        Vd3: Hiển thị Mã nhân viên, họ tên, lương cơ bản, phụ cấp và lương trong đó:
+                    Lương = Lương cơ bản + Phụ cấp;
+            ->  SELECT MANHANVIEN AS 'Mã nhân viên', HO +' '+ TEN AS 'Họ và tên', LUONGCOBAN AS 'Lương cơ bản', PHUCAP AS 'Phụ cấp',
+                    CASE
+                        WHEN PHUCAP IS NULL THEN LUONGCOBAN
+                        ELSE PHUCAP+LUONGCOBAN
+                    END AS 'Lương'
+                FROM NHANVIEN
+        *Note: PHUCAP IS NULL -> Phụ cấp khác Null
+    *   Để hiển thị tên các cột chung khi làm việc trên nhiều bảng 
+        thì chỉ rõ tên cột chung thuộc bảng nào:
+            <Tên bảng>.<Tên cột chung>
+        Lỗi: Ambiguous column name (trùng cột)
+        Vd: Hiển thị Mã hàngm tên hàng, số lượng và giá bán của mặt hàng.
+        Hiển thị: MaHang, TenHang, SoLuongm GiaBan
