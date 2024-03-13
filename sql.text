@@ -96,3 +96,119 @@ Vd:
             FROM SINHVIEN
         //lấy top 5 sinh viên ...
         Note: lấy thứ tự ...
+        
+13/3/2024
+                  MỆNH ĐỀ FROM
+
+        FROM <Danh sách các bảng>
+        Cú pháp:
+        // Nối 2 bảng
+        * FROM <Tên bảng 1> JOIN/INNER JOIN <Tên bảng 2> ON
+        <Tên bảng 1>.<Tên cột chung> =<Tên bảng 2>.<Tên cột chung> 
+
+    Ví dụ 1: MatHang ChiTietDatHang
+    => FROM MatHang INNER JOIN ChiTietDatHang ON   
+        MatHang.MaHang= ChiTietDatHang.MaHang
+
+    Ví dụ 2: Cho biết Mã hàng, Tên hàng, Số lượng, Gía Bán của mỗi mặt hàng
+        Hiển thị: MaHang, TenHang, SoLuong, GiaBan
+        Bảng: MatHang, ChiTietDatHang
+
+    SELECT MatHang.MaHang, TenHang, SoLuong, GiaBan
+    => FROM MatHang INNER JOIN ChiTietDatHang ON
+        MatHang.MaHang= ChiTietDatHang.MaHang
+
+        // Nối >3 bảng
+        * FROM <Tên bảng 1> JOIN/INNER JOIN <Tên bảng 2> ON
+        <Tên bảng 1>.<Tên cột chung> =<Tên bảng 2>.<Tên cột chung> 
+                INNER JOIN <Tên bảng 3> ON TB1/TB2.<cột chung> = TB3.<cột chung>
+        Note: Xem bảng 1 nối bảng 2 là 1 bảng mới, tiếp tục nối với bảng thứ 3 bằng cột chung
+    
+    Ví dụ 1: 
+    =>  FROM MatHang INNER JOIN ChiTietDatHang ON MatHang.MaHang= ChiTietDatHang.MaHang 
+                    INNER JOIN LoaiHang ON MatHang.MaLoaiHang = LoaiHang.MaLoaiHang  
+    Ví dụ 2: Cho biết họ, tên nhân viên đã đặt hàng những mã hàng, tên hàng nào ?
+
+                    MỆNH ĐỀ WHERE
+
+            WHERE <Danh sách điều kiện> 
+            * Phép toán so sánh: >, >=, <, <=, <> (khác)
+            * Phép toán logic: AND, OR, Note
+
+    Ví dụ: Cho biết mặt hàng có số lượng bán ra >50 và giá bán >1000
+        Hiển thị: MaHang, TenHang
+        Bảng: MatHang
+        Điều kiện: SoLuong >50 AND GiaHang >1000
+
+    =>  SELECT MaHang, TenHang
+    FROM MatHang
+    WHERE SoLuong >50 AND GiaHang >1000
+
+            * BETWEEN A AND B: A<=X<=BETWEEN
+            * IS NULL, IS NOT NULL
+            * IN hoặc NOT IN: sau IN hoặc NOT IN là giá trị của một tập hợp (trong bài: Cấu trúc Select lồng nhau)
+
+    Ví dụ: Cho biết mã nhân viên, họ, tên của nững nhân viên có hệ số lương 2.34, 2.67, 3.00
+    =>  SELECT MaNhanVien, Ho, Ten, HeSoLuong
+        FROM MaNhanVien
+        WHERE HeSoLuong =2.34 OR
+                HeSoLuong =2.67 OR
+                    HeSoLuong =3.00
+        hoặc
+        WHERE HeSoLuong IN (2.34, 2.67, 3.00)
+
+            * Ký tự đại diện: LIKE ...%
+
+    Ví dụ 1: Cho biết những nhân viên có họ là Nguyễn 
+    =>  SELECT HO, TEN
+        FROM NHANVIEN
+        WHERE HO LIKE N'Nguyễn%'
+
+    Ví dụ 2: Cho biết công nhân có biển số xe là 75 phía sau
+    =>  SELECT *
+        FROM CONGDAN
+        WHERE BIENSOXE LIKE '%75'
+
+    Ví dụ 3: Cho biết công dân có biển số xe có số 75
+
+    =>  SELECT *
+        FROM CONGDAN
+        WHERE BIENSOXE LIKE '%75%'
+/*5.1*/
+SELECT *
+FROM NHACUNGCAP
+
+/*5.2*/
+SELECT MAHANG, TENHANG, SOLUONG
+FROM MATHANG
+
+/*5.3*/
+SELECT HO+' '+TEN AS "HO VA TEN", DIACHI, YEAR(NGAYLAMVIEC) AS "NAMLAMVIEC"
+FROM NHANVIEN
+
+/*5.4*/
+SELECT DIACHI, DIENTHOAI
+FROM NHACUNGCAP
+WHERE TENGIAODICH ='A'
+
+/*5.5*/
+SELECT MAHANG, TENHANG
+FROM MATHANG
+WHERE GIAHANG>1000 AND
+		SOLUONG<50
+
+/*5.6*/
+SELECT TENHANG, TENCONGTY
+FROM NHACUNGCAP INNER JOIN MATHANG ON NHACUNGCAP.MACONGTY = MATHANG.MACONGTY
+
+/*5.7*/
+SELECT TENHANG
+FROM NHACUNGCAP INNER JOIN MATHANG ON NHACUNGCAP.MACONGTY = MATHANG.MACONGTY
+WHERE TENCONGTY =N'công ty B'
+
+/*5.8*/
+SELECT TENCONGTY, DIACHI
+FROM NHACUNGCAP INNER JOIN MATHANG ON NHACUNGCAP.MACONGTY = MATHANG.MACONGTY
+					INNER JOIN LOAIHANG ON MATHANG.MALOAIHANG = LOAIHANG.MALOAIHANG
+WHERE TENLOAIHANG =N'Thực phẩm'
+
