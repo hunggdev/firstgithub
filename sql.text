@@ -1,4 +1,5 @@
 21/2/2024
+
                 NGÔN NGỮ TRUY VẤN CÓ CẤU TRÚC
 
 SELECT< Danh sách các cột cần hiển thị>
@@ -33,13 +34,16 @@ HAVING (SELECT
         ...)
 
                         MỆNH ĐỀ SELECT
+			
         * Các cột hiển thị cách nhau bởi dấu phẩy
         Ví Dụ: Hiển thị mã nhân viên, họ tên, lương cơ bản của mỗi nhân viên
         =>  SELECT MANHANVIEN, HO+' '+TEN, LUONGCOBAN
             FROM NHANVIEN   
 
-            //*********************//
+            		//*********************//
+	    
 28/2/2024
+
 ĐỔI TÊN CỘT
     <TÊN CŨ> AS <TÊN MỚI>
 Note: Tên là một chuỗi ký tự -> đặt trong ' '
@@ -88,7 +92,8 @@ Vd:
         Vd: Hiển thị Mã hàngm tên hàng, số lượng và giá bán của mặt hàng.
         Hiển thị: MaHang, TenHang, SoLuongm GiaBan
         
-                TỪ KHÓA TOP, PERCENT
+                	TỪ KHÓA TOP, PERCENT
+		
             TOP: Lấy số lượng từ trên (xếp hạng)
             PERCENT: Lấy số lượng % từ trên (xêp hạng)
         Vd:
@@ -96,8 +101,11 @@ Vd:
             FROM SINHVIEN
         //lấy top 5 sinh viên ...
         Note: lấy thứ tự ...
+	
+		 	//*********************//
         
 13/3/2024
+
                   MỆNH ĐỀ FROM
 
         FROM <Danh sách các bảng>
@@ -174,41 +182,48 @@ Vd:
     =>  SELECT *
         FROM CONGDAN
         WHERE BIENSOXE LIKE '%75%'
-/*5.1*/
-SELECT *
-FROM NHACUNGCAP
 
-/*5.2*/
-SELECT MAHANG, TENHANG, SOLUONG
-FROM MATHANG
+  			//*********************//
 
-/*5.3*/
-SELECT HO+' '+TEN AS "HO VA TEN", DIACHI, YEAR(NGAYLAMVIEC) AS "NAMLAMVIEC"
-FROM NHANVIEN
+20/3/2024
+        
+                MỆNH ĐỀ ORDER BY: Sắp xếp
 
-/*5.4*/
-SELECT DIACHI, DIENTHOAI
-FROM NHACUNGCAP
-WHERE TENGIAODICH ='A'
+            SELECT 
+            FROM
+            WHERE
+            ORDER BY
 
-/*5.5*/
-SELECT MAHANG, TENHANG
-FROM MATHANG
-WHERE GIAHANG>1000 AND
-		SOLUONG<50
+            ORDER BY <Tên cột sắp xếp> ASC/DESC
+                Trong đó: ASC: tăng dần, DESC: Giảm dần
+                Lưu ý: Khi sắp xếp trên nhiều cột thì các cột cách nhau bởi dấu phẩy
 
-/*5.6*/
-SELECT TENHANG, TENCONGTY
-FROM NHACUNGCAP INNER JOIN MATHANG ON NHACUNGCAP.MACONGTY = MATHANG.MACONGTY
+            VD: SELECT*
+                FROM NHACUNGCAP
+                ORDER BY TenNhaCC ASC, MaSoThue DESC
 
-/*5.7*/
-SELECT TENHANG
-FROM NHACUNGCAP INNER JOIN MATHANG ON NHACUNGCAP.MACONGTY = MATHANG.MACONGTY
-WHERE TENCONGTY =N'công ty B'
+                NHÓM HÀM THỐNG KÊ
+                    SUM, COUNT, AVG
+            Lưu ý: 
+                - Các nhóm hàm thống kê nằm trong SELECT
+                - Khi sử dụng nhóm hàm thóng kê phải sử dụng từ khóa GROUP BY   
+                        SELECT
+                        FROM
+                        WHERE 
+                        ORDER BY
+                        GROUP BY
+                - Sau GROUP BY các cột nằm trong SELECT thì phải xuất hiện sau GROUP BY trừ nhóm hàm thống KÊ
+            
+            VD: Tính điểm trung bình của mỗi sinh viên biết rằng:
+                    DTB = SUM(DIEM*SOTC)/SUM(STC)
+                DTB = SUM(DIEMLAN1*SODVHT)/SUM(SODVHT)
 
-/*5.8*/
-SELECT TENCONGTY, DIACHI
-FROM NHACUNGCAP INNER JOIN MATHANG ON NHACUNGCAP.MACONGTY = MATHANG.MACONGTY
-					INNER JOIN LOAIHANG ON MATHANG.MALOAIHANG = LOAIHANG.MALOAIHANG
-WHERE TENLOAIHANG =N'Thực phẩm'
+                SELECT SINHVIEN.MASV, HODEM, TEN, SUM(DIEMLAN1*SODVTH)/SUM(SODVHT) AS 'DTB'
+                FROM SINHVIEN INNER JOIN DIEMTHI ON SINHVIEN.MASV = DIEMTHI.MASV
+                                INNER JOIN MONHOC ON DIEMTHI.MAMONHOC = MONHOC.MAMONHOC
+                GROUP BY SINHVIEN.MASV, HODEM, TEN
+
+			 //*********************//
+
+	
 
