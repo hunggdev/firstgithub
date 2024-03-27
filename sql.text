@@ -225,5 +225,39 @@ Vd:
 
 			 //*********************//
 
-	
+27/3/2024
+
+			  ĐIỀU KIỆN CỦA HÀM THỐNG KÊ: HAVING
+
+                * WHERE (điều kiện của cột đã có trong cơ sở dữ liệu) <> HAVING (điều kiện của nhóm hàm thống kê)
+
+                Ví dụ 1: Thống kê sinh viên có điểm trung bình >=8
+
+                    SELECT MASV, HO, TEN
+                    SUM(DIEMLAN1*SODVHT)/SUM(SODVHT) AS DTB
+                    FROM SinhVien, DiemThi, MONHOC
+                    GROUP BY MASV, HO, TEN
+                    HAVING SUM(DIEMLAN1*SODVHT)/SUM(SODVHT)>=8
+
+
+                            CÁC LOẠI PHÉP NỐI
+
+                * JOIN / INNER JOIN
+
+                    PHÉP NỐI TRÁI: LEFT JOIN
+                    FROM <Tên bảng 1> LEFT JOIN <Tên bảng 2>
+                    ON <Tên bảng 1>.<Tên cột chung> = <Tên bảng 2>.<Tên cột chung>
+
+                    PHÉP NỐI PHẢI: RIGHT JOIN
+                    FROM <Tên bảng 1< RIGHT JOIN <Tên bảng 2>
+                    ON <Tên bảng 1>.<Tên cột chung> = <Tên bảng 2>.<Tên cột chung> 
+
+                Ví dụ: Số đơn đặt hàng của mỗi nhân viên 
+
+                    select NHANVIEN.MANHANVIEN, HO, TEN, COUNT(DONDATHANG.MANHANVIEN) AS 'SO DON'
+                    from NHANVIEN LEFT JOIN DONDATHANG ON NHANVIEN.MANHANVIEN = DONDATHANG.MANHANVIEN
+                    group by NHANVIEN.MANHANVIEN, HO, TEN
+
+
+      			 //*********************//
 
