@@ -258,6 +258,68 @@ Vd:
                     from NHANVIEN LEFT JOIN DONDATHANG ON NHANVIEN.MANHANVIEN = DONDATHANG.MANHANVIEN
                     group by NHANVIEN.MANHANVIEN, HO, TEN
 
-
       			 //*********************//
+
+3/4/2024
+			 CẤU TRÚC LỒNG NHAU 
+
+        *   Cấu trúc 1: Từng/ Chưa từng ... IN/ NOT IN 
+            select
+            from 
+            where <cột dữ liệu> in/ not in (select 
+                                        from 
+                                        where)
+
+                VD1: Cho biết thông tin những nhà cung cấp đã từng đăng ký cung cấp 
+            ->  select*
+                from NHACUNGCAP
+                where MANHACC in (select distinct MANHACC
+                                    from DANGKYCUNGCAP)
+
+                VD2: Liệt kê thông tin những nhà cung cấp đã đăng ký cung cấp có Dòng xe là Hiace hoặc là Cerato
+            ->      select*
+                    from NHACUNGCAP
+                    where (MaNhaCC) in (select distinct MaNhaCC 
+                                        from DANGKYCUNGCAP 
+                                        where DongXe ='Hiace' or DongXe='Cerato')  
+
+
+        *   Cấu trúc lồng nhau nhiều nhất/ ít nhất
+            select 
+            from
+            where
+            group by
+            having < hàm thống kê> >= ALL (select 
+                                            from 
+                                        where 
+                                        group by)
+
+                VD1: Thông tin các sinh viên có điểm trung bình cao nhất
+		
+            ->  select SINHVIEN.MASV, HODEM, TEN, SUM(DIEMLAN1*SODVHT)/SUM(SODVHT) as 'DTB'
+                from SINHVIEN INNER JOIN DIEMTHI ON SINHVIEN.MASV = DIEMTHI.MASV
+                                INNER JOIN MONHOC ON DIEMTHI.MAMONHOC = MONHOC.MAMONHOC
+                group by SINHVIEN.MASV, HODEM, TEN
+                having SUM(DIEMLAN1*SODVHT)/SUM(SODVHT) >= all (select SUM(DIEMLAN1*SODVHT)/SUM(SODVHT) as 'DTB'
+                                                                from SINHVIEN INNER JOIN DIEMTHI ON SINHVIEN.MASV = DIEMTHI.MASV
+                                                                                INNER JOIN MONHOC ON DIEMTHI.MAMONHOC = MONHOC.MAMONHOC
+                                                                group by SINHVIEN.MASV, HODEM, TEN )
+
+
+                VD2: Nhân viên nào có lương cơ bản lớn nhất 
+		
+            ->  //c1
+                select MANHANVIEN, HO+' '+TEN as 'HO TEN'
+                from NHANVIEN
+                where LUONGCOBAN >=ALL (select LUONGCOBAN from NHANVIEN)
+                //c2
+                select MANHANVIEN, HO+' '+TEN as 'HO TEN'
+                from NHANVIEN
+                where LUONGCOBAN = (select max(LUONGCOBAN) from NHANVIEN)
+                //c3
+                select MANHANVIEN, HO+' '+TEN as 'HO TEN'
+                from NHANVIEN
+                where LUONGCOBAN = (select top 1 LUONGCOBAN from NHANVIEN order by LUONGCOBAN desc)
+
+			//*********************//
 
