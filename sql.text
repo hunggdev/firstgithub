@@ -323,3 +323,6 @@ Vd:
 
 			//*********************//
 
+   10/4/2024
+   	datediff(hour, sttime, entime) -> hieu cua 2 thoi gian don vi gio 
+
